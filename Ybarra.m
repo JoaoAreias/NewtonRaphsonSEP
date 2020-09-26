@@ -1,6 +1,3 @@
-clear all
-clc
-
 ramos = xlsread ('casoieee14_ramos.xls');
 barras = xlsread ('casoieee14_barras.xls');
 
