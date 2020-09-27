@@ -40,7 +40,7 @@ elemento_2 = zeros((length(num_barra)), (length(num_barra)));
  
  %% unindo a matriz diagonal principal com a matriz fora da diagonal e formando a Ybarra
 Y_barra = Ykk+Y_barra_2;
-B = real(Y_barra);
-G = imag(Y_barra);
+B = imag(Y_barra);
+G = real(Y_barra);
     
         

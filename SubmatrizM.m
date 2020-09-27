@@ -20,12 +20,12 @@ function M = SubmatrizM(v_mod,v_ang, G, B, tipo)
                s = 0;
                for i = 1:n_barras
                    theta_ki = v_ang(k)-v_ang(i);
-                   s = s + v_mod(i)*(G(k, i)*cos(theta_ki) - B(k, i)*sin(theta_ki));
+                   s = s + v_mod(i)*(G(k, i)*cos(theta_ki) + B(k, i)*sin(theta_ki));
                end
                M(idx_i, idx_j) = -v_mod(k)^2*G(k, k) - v_mod(k)*s;
            else
                theta_km = v_ang(k)-v_ang(m);
-               M(idx_i, idx_j) = -v_mod(k)*v_mod(m)*(G(k, m)*cos(theta_km) - B(k, m)*sin(theta_km));
+               M(idx_i, idx_j) = -v_mod(k)*v_mod(m)*(G(k, m)*cos(theta_km) + B(k, m)*sin(theta_km));
            end
            idx_j = idx_j + 1;
         end

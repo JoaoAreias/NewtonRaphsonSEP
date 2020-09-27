@@ -1,9 +1,9 @@
-function L = SubmatrizL(v_mod,v_ang, G, B, tipo)
+function L = SubmatrizL(v_mod, v_ang, G, B, tipo)
     %SUBMATRIZH Submatriz da matriz jacobiana referente a dQ/dV
     n_barras = length(G);
     quant_pq = sum(tipo == 1); % Quantidade de barras pq
     L = zeros(quant_pq);
-    return
+    
     idx_i = 1;
     for k = 1:n_barras
         if tipo(k) ~=1

@@ -7,4 +7,3 @@ function J = MatrizJacobiana(v_mod, v_ang, G, B, tipo)
     L = SubmatrizL(v_mod, v_ang, G, B, tipo);
     J = [H N; M L];
 end
-
