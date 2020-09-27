@@ -6,5 +6,6 @@ CarregarDados
 Ybarra
 SolucaoInicial
 
-v_inicial = ones([length(Y_barra) 1]);
-theta_inicial = zeros();
+J = MatrizJacobiana(v_mod, v_ang, G, B);
+disp('------ JACOBIANO DA PRIMEIRA ITERAÇÃO: ------')
+disp(J)
