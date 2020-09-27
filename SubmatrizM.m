@@ -22,7 +22,7 @@ function M = SubmatrizM(v_mod,v_ang, G, B, tipo)
                    theta_ki = v_ang(k)-v_ang(i);
                    s = s + v_mod(i)*(G(k, i)*cos(theta_ki) + B(k, i)*sin(theta_ki));
                end
-               M(idx_i, idx_j) = -v_mod(k)^2*G(k, k) - v_mod(k)*s;
+               M(idx_i, idx_j) = -v_mod(k)^2*G(k, k) + v_mod(k)*s;
            else
                theta_km = v_ang(k)-v_ang(m);
                M(idx_i, idx_j) = -v_mod(k)*v_mod(m)*(G(k, m)*cos(theta_km) + B(k, m)*sin(theta_km));
