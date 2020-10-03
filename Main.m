@@ -7,7 +7,7 @@ Ybarra
 SolucaoInicial
 
 Pesp = (Pger_barra - Pcons_barra)/100;
-Qesp = Qger_barra - Qcons_barra/100;
+Qesp = (Qger_barra - Qcons_barra)/100;
 
 pq_count = sum(tipo_barra == 1);
 pv_count = sum(tipo_barra == 2);
@@ -21,7 +21,8 @@ for i = 1:max_iter
     
     % Sai do algorítimo quando convergir
     residuos = [resP; resQ];
-    if(all(abs(residuos) < eps))
+    disp(max(residuos))
+    if(max(abs(residuos)) <= eps/100)
         break;
     end
     
@@ -33,7 +34,6 @@ for i = 1:max_iter
 end
 
 v_ang = rad2deg(v_ang);
-
 lista_barras = transpose(linspace(1, length(barras), length(barras)));
 resultado = [lista_barras v_mod v_ang];
 
