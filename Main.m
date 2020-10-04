@@ -13,10 +13,8 @@ pq_count = sum(tipo_barra == 1);
 pv_count = sum(tipo_barra == 2);
 
 for i = 1:max_iter
-    P = PotenciaP(v_mod, v_ang, G, B);
-    Q = PotenciaQ(v_mod, v_ang, G, B);
-    resPa = Pesp - P;
-    resQa = Qesp - Q;
+    resPa = Pesp - PotenciaP(v_mod, v_ang, G, B);
+    resQa = Qesp - PotenciaQ(v_mod, v_ang, G, B);
     
     resP = resPa(tipo_barra ~= 3); % Todos menos barra swing
     resQ = resQa(tipo_barra == 1); % Apenas barra PQ
