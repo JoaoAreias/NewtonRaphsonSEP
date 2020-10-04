@@ -19,7 +19,7 @@ function N = SubmatrizN(v_mod,v_ang, G, B,  tipo)
                s = 0;
                for i = 1:n_barras
                    theta_ki = v_ang(k) - v_ang(i);
-                   s = s + v_mod(i)*(G(k, i)*cos(theta_ki) + B(k, m)*sin(theta_ki));
+                   s = s + v_mod(i)*(G(k, i)*cos(theta_ki) + B(k, i)*sin(theta_ki));
                end
                N(idx_i, idx_j) = v_mod(k)*G(k, k) + s;
            else
