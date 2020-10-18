@@ -13,9 +13,11 @@ Qesp = (Qger_barra - Qcons_barra)./base_barra;
 pq_count = sum(tipo_barra == 1);
 pv_count = sum(tipo_barra == 2);
 
+[H, L] = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
+
 for i = 1:max_iter
-    resPa = Pesp - PotenciaP(v_mod, v_ang, G, B);
-    resQa = Qesp - PotenciaQ(v_mod, v_ang, G, B);
+    resPa = (Pesp - PotenciaP(v_mod, v_ang, G, B))./v_mod;
+    resQa = Qesp - PotenciaQ(v_mod, v_ang, G, B)./v_mod;
     
     resP = resPa(tipo_barra ~= 3); % Todos menos barra swing
     resQ = resQa(tipo_barra == 1); % Apenas barra PQ
@@ -26,11 +28,11 @@ for i = 1:max_iter
         break;
     end
     
-    J = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
-    dx = J\residuos;
+    d_theta = H\resP;
+    d_v = L\resQ;
     
-    v_ang(tipo_barra ~= 3) = v_ang(tipo_barra ~= 3) + dx(1:(pq_count + pv_count));
-    v_mod(tipo_barra == 1) = v_mod(tipo_barra == 1) + dx((pq_count + pv_count + 1): end);
+    v_ang(tipo_barra ~= 3) = v_ang(tipo_barra ~= 3) + d_theta;
+    v_mod(tipo_barra == 1) = v_mod(tipo_barra == 1) + d_v;
 end
 
 v_ang = rad2deg(v_ang);
