@@ -26,11 +26,13 @@ for i = 1:max_iter
         break;
     end
     
-    J = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
-    dx = J\residuos;
+    [H, L] = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
+    d_theta = H\resP;
+    d_v = L\resQ;
+    %dx = J\residuos;
     
-    v_ang(tipo_barra ~= 3) = v_ang(tipo_barra ~= 3) + dx(1:(pq_count + pv_count));
-    v_mod(tipo_barra == 1) = v_mod(tipo_barra == 1) + dx((pq_count + pv_count + 1): end);
+    v_ang(tipo_barra ~= 3) = v_ang(tipo_barra ~= 3) + d_theta;
+    v_mod(tipo_barra == 1) = v_mod(tipo_barra == 1) + d_v;
 end
 
 v_ang = rad2deg(v_ang);

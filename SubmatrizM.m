@@ -4,7 +4,6 @@ function M = SubmatrizM(v_mod,v_ang, G, B, tipo)
     nao_pv = sum(tipo ~= 3); % Computa quantas barras não são barras swing
     quant_pq = sum(tipo == 1); % Quantidade de barras pq
     M = zeros([quant_pq, nao_pv]);
-    
     idx_i = 1;
     for k = 1:n_barras
         if tipo(k) ~=1
