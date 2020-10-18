@@ -1,3 +1,4 @@
+tic
 clear all;
 clc;
 
@@ -36,5 +37,7 @@ v_ang = rad2deg(v_ang);
 lista_barras = transpose(linspace(1, length(barras), length(barras)));
 resultado = [lista_barras v_mod v_ang];
 
+disp(['N° de iteracoes: ', int2str(i)])
 disp('    Barra || Modulo V || Angulo V')
 disp(resultado)
+toc
