@@ -13,26 +13,28 @@ Qesp = (Qger_barra - Qcons_barra)./base_barra;
 pq_count = sum(tipo_barra == 1);
 pv_count = sum(tipo_barra == 2);
 
-[H, L] = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
+
+H = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
+
+% Assegura que todos os modulos das tensões serão iguais a 1 p.u
+for i = 1:length(v_mod)
+   v_mod(i) = 1; 
+end
+
 
 for i = 1:max_iter
-    resPa = (Pesp - PotenciaP(v_mod, v_ang, G, B))./v_mod;
-    resQa = Qesp - PotenciaQ(v_mod, v_ang, G, B)./v_mod;
+    resPa = Pesp - PotenciaP(v_mod, v_ang, G, B);
+    resQa = Qesp - PotenciaQ(v_mod, v_ang, G, B);
     
     resP = resPa(tipo_barra ~= 3); % Todos menos barra swing
-    resQ = resQa(tipo_barra == 1); % Apenas barra PQ
     
     % Sai do algorítimo quando convergir
-    residuos = [resP; resQ];
-    if(max(abs(residuos)) <= eps/100)
+    if(max(abs(resP)) <= eps/100)
         break;
     end
     
-    d_theta = H\resP;
-    d_v = L\resQ;
-    
+    d_theta = H\resP;    
     v_ang(tipo_barra ~= 3) = v_ang(tipo_barra ~= 3) + d_theta;
-    v_mod(tipo_barra == 1) = v_mod(tipo_barra == 1) + d_v;
 end
 
 v_ang = rad2deg(v_ang);
