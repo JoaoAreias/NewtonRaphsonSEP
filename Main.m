@@ -1,3 +1,4 @@
+tic
 clear all;
 clc;
 
@@ -9,8 +10,11 @@ SolucaoInicial
 Pesp = (Pger_barra - Pcons_barra)./base_barra;
 Qesp = (Qger_barra - Qcons_barra)./base_barra;
 
+
 pq_count = sum(tipo_barra == 1);
 pv_count = sum(tipo_barra == 2);
+
+J = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
 
 for i = 1:max_iter
     resPa = Pesp - PotenciaP(v_mod, v_ang, G, B);
@@ -24,8 +28,6 @@ for i = 1:max_iter
     if(max(abs(residuos)) <= eps/100)
         break;
     end
-    
-    J = MatrizJacobiana(v_mod, v_ang, G, B, tipo_barra);
     dx = J\residuos;
     
     v_ang(tipo_barra ~= 3) = v_ang(tipo_barra ~= 3) + dx(1:(pq_count + pv_count));
@@ -36,5 +38,7 @@ v_ang = rad2deg(v_ang);
 lista_barras = transpose(linspace(1, length(barras), length(barras)));
 resultado = [lista_barras v_mod v_ang];
 
+disp(['N° de iteracoes: ', int2str(i)])
 disp('    Barra || Modulo V || Angulo V')
 disp(resultado)
+toc
